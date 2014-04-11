@@ -6,7 +6,7 @@
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">    
     
-    <xsl:import href="/modules/library-stk/image.xsl"/>   
+    <xsl:import href="/modules/library-stk/html.xsl"/>   
     <xsl:import href="/modules/library-stk/text.xsl"/>    
     <xsl:import href="/modules/library-stk/time.xsl"/>  
     
@@ -29,9 +29,28 @@
                 <header>
                     <h1><xsl:value-of select="contentdata/title" /></h1>
                     <time class="published">
-                        <xsl:value-of select="@published" />
+                        <xsl:value-of select="if(normalize-space(contentdata/wp_postdate) != '') then contentdata/wp_postdate else @published" />
                     </time>
                 </header>
+                
+                <xsl:if test="contentdata/text != ''">
+                  <xsl:call-template name="stk:html.process">
+                      <xsl:with-param name="document" select="contentdata/text" />
+                  </xsl:call-template>
+                </xsl:if>
+                
+                <aside>
+                    <ul class="tag-lis">
+                        <xsl:for-each select="/result/contents/relatedcontents/content[@key = current()/contentdata/tags/content/@key]">
+                            <li>
+                                <a href="#">
+                                    <xsl:value-of select="current()/contentdata/tag_name" />
+                                </a>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                </aside>
+                
             </article>
         </li>
     </xsl:template>
