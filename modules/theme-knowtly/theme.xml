@@ -1,0 +1,89 @@
+<theme>
+    <region-prefix/>
+    <!--
+    <accessibility>
+        <bypass text="stk.accessibility.skip-to-main-content" anchor="main" access-key=""/>
+    </accessibility>
+    -->
+    <device-classes>
+        <device-class name="all">
+            <image>
+                <format>jpeg</format>
+                <quality>80</quality>
+                <filters>
+                    <filter>rounded(4)</filter>
+                </filters>
+                <prescaled>
+                    <size>64</size>
+                    <size>128</size>
+                    <size>256</size>
+                    <size>512</size>
+                    <size>1024</size>
+                </prescaled>
+                <sizes>
+                    <size name="full">
+                        <filter>scalewidth</filter>
+                        <width>1</width>
+                    </size>
+                    <size name="wide">
+                        <filter>scalewide</filter>
+                        <width>1</width>
+                        <height>0.4</height>
+                    </size>
+                    <size name="regular">
+                        <filter>scalewidth</filter>
+                        <width>0.4</width>
+                    </size>
+                    <size name="list">
+                        <filter>scalewidth</filter>
+                        <width>0.3</width>
+                    </size>
+                    <size name="square">
+                        <filter>scalesquare</filter>
+                        <size>0.4</size>
+                    </size>
+                    <size name="thumbnail">
+                        <filter>scalesquare</filter>
+                        <size>0.1</size>
+                    </size>
+                </sizes>
+            </image>
+            <scripts>               
+<!--                 <script><path>{theme}pre-less.js</path></script> -->
+                <script><path>{stk}less-min.js</path></script>
+                <script><path>//code.jquery.com/jquery-latest.min.js</path></script>
+                <script><path>{stk}stk.js</path></script>
+                <script><path>{stk}stk-aria.js</path></script>
+                <script><path>{theme}main.js</path></script>
+                <script>
+                    <path>//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js</path>                    
+                    <condition>lt IE 9</condition>
+                    <placement>head</placement>
+                </script>
+                <script>
+                    <path>{stk}selectivizr-min.js</path>
+                    <condition>lt IE 9</condition>   
+                </script>
+            </scripts>
+        </device-class>
+        <device-class name="desktop,unknown">
+            <layout name="default">
+                <row cols="12">
+                    <region name="top">
+                        <cols>12</cols>
+                    </region>
+                </row>
+                <row cols="12">
+                    <region name="center">
+                        <cols>12</cols>
+                    </region>
+                </row>
+            </layout>            
+            <styles>
+                <style>
+                    <path>{theme}main.less</path>
+                </style>
+            </styles>
+        </device-class>
+    </device-classes>
+</theme>
