@@ -31,12 +31,21 @@
                     <time class="published">
                         <xsl:value-of select="if(normalize-space(contentdata/wp_postdate) != '') then contentdata/wp_postdate else @published" />
                     </time>
-                </header>
+                </header> 
                 
                 <xsl:if test="contentdata/text != ''">
-                  <xsl:call-template name="stk:html.process">
-                      <xsl:with-param name="document" select="contentdata/text" />
-                  </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="@created &lt; '2014-04-12'">
+                            <xsl:value-of select="contentdata/text" disable-output-escaping="yes" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="stk:html.process">
+                                <xsl:with-param name="document" select="contentdata/text" />
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <!---->
+
                 </xsl:if>
                 
                 <aside>
