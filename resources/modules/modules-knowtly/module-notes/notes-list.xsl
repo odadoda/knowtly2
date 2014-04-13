@@ -24,32 +24,35 @@
     
     
     <xsl:template match="content">
-        <li>
+        <li class="note">
             <article>
                 <header>
                     <h1><xsl:value-of select="contentdata/title" /></h1>
                     <time class="published">
-                        <xsl:value-of select="if(normalize-space(contentdata/wp_postdate) != '') then contentdata/wp_postdate else @published" />
+                        <xsl:value-of select="if(normalize-space(contentdata/wp_postdate) != '') then contentdata/wp_postdate else @publishfrom" />
                     </time>
                 </header> 
                 
-                <xsl:if test="contentdata/text != ''">
-                    <xsl:choose>
-                        <xsl:when test="@created &lt; '2014-04-12'">
-                            <xsl:value-of select="contentdata/text" disable-output-escaping="yes" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="stk:html.process">
-                                <xsl:with-param name="document" select="contentdata/text" />
-                            </xsl:call-template>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <!---->
-
-                </xsl:if>
-                
+                <div class="content">
+                    <xsl:if test="contentdata/text != ''">
+                        <xsl:choose>
+                            <xsl:when test="@created &lt; '2014-04-12'">
+                                <div class="editor">
+                                    <xsl:value-of select="contentdata/text" disable-output-escaping="yes" />
+                                </div>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="stk:html.process">
+                                    <xsl:with-param name="document" select="contentdata/text" />
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <!---->
+    
+                    </xsl:if>
+                </div>
                 <aside>
-                    <ul class="tag-lis">
+                    <ul class="tag-list">
                         <xsl:for-each select="/result/contents/relatedcontents/content[@key = current()/contentdata/tags/content/@key]">
                             <li>
                                 <a href="#">

@@ -59,8 +59,6 @@
                 <div id="container">
                     <!-- Create content bypass links if defined in config -->
                     <xsl:call-template name="stk:accessibility.create-bypass-links"/>
-                                        
-                    <h1>My first headline</h1>
                     
                     <!-- Renders all regions defined in config -->
                     <xsl:call-template name="stk:region.create">
