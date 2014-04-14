@@ -12,6 +12,8 @@
     
     <xsl:output method="xhtml"/>
     
+    
+    
     <xsl:template match="/">
         
         <xsl:if test="/result/contents/content != ''">
@@ -55,7 +57,7 @@
                     <ul class="tag-list">
                         <xsl:for-each select="/result/contents/relatedcontents/content[@key = current()/contentdata/tags/content/@key]">
                             <li>
-                                <a href="#">
+                                <a href="{portal:createPageUrl(('tag_name', current()/contentdata/tag_name, 'tag_id', current()/@key))}">
                                     <xsl:value-of select="current()/contentdata/tag_name" />
                                 </a>
                             </li>

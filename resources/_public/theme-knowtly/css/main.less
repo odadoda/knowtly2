@@ -59,6 +59,7 @@ ol,ul{
     
     article {
         display: flex;
+        display: -webkit-flex;
         justify-content: center;
         
     }
@@ -73,20 +74,30 @@ ol,ul{
     header{
         .flexitem();
         order: 1;
+        -webkit-order:1;
         flex: 3;
+        -webkit-flex:3;
+        
+        h1 {
+            font-weight: bold; 
+        }
         
     }
     .content{
         .flexitem();
         order: 3;
+        -webkit-order: 3;
         flex: 7;
+        -webkit-flex: 7;
         padding: 0 10px;
     }
     
     aside {
         .flexitem();
         order: 2;
+        -webkit-order: 2;
         flex: 1;
+        -webkit-flex: 1;
     }
 }
 
@@ -121,6 +132,7 @@ ol,ul{
 ***************************/
 .commandline{
     margin: 20px 0;
+    
     .searchfield {
         background: none repeat scroll 0 0 #333333;
         border: 0 none;

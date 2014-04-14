@@ -37,7 +37,10 @@ $(function() {
 
 	$("#commandline").submit( function( event ){
     	event.preventDefault();
-    	var url = "?tag="+$(this).children("#command-input").val();
+    	var tag_name = $(this).children("#command-input").val();
+    	console.log($(this).children('#taglist').find('option[value="'+tag_name+'"]').data('tag_id'));//
+    	var url = "?tag_name="+$(this).children("#command-input").val();
+    	url += "&tag_id="+$(this).children('#taglist').find('option[value="'+tag_name+'"]').data('tag_id');
     	window.location.href = url;
     	return false;
     });

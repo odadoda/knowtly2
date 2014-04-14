@@ -11,11 +11,11 @@
     <xsl:template match="/">
         <div class="commandline">
             <form action="#" method="post" id="commandline">
-              <label class="audible">Filter</label>
-                <input type="text" class="searchfield" id="command-input" placeholder="Filtrer: tag / title" list="taglist"/>
-              <datalist id="taglist">
+               <label class="audible">Filter</label>
+               <input type="text" class="searchfield" id="command-input" placeholder="Filtrer: tag / title" list="taglist"/>
+               <datalist id="taglist">
                   <xsl:for-each select="/result/contents/content">
-                      <option value="{current()/contentdata/tag_name}">
+                      <option value="{current()/contentdata/tag_name}" data-tag_id="{current()/@key}">
                           <xsl:value-of select="current()/contentdata/tag_name" />
                       </option>
                   </xsl:for-each>
