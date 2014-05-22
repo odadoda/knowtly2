@@ -6,20 +6,24 @@
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">    
     
-    
+    <xsl:output method="html" />
     
     <xsl:template match="/">
         <div class="commandline">
             <form action="#" method="post" id="commandline">
                <label class="audible">Filter</label>
-               <input type="text" class="searchfield" id="command-input" placeholder="Filtrer: tag / title" list="taglist"/>
-               <datalist id="taglist">
+<!--               <input type="text" class="searchfield" id="command-input" placeholder="Filtrer: tag / title" list="taglist"/>-->
+                <div id="searchfield" class="searchfield">
+                    <ol id="valid-commands"></ol>
+                    <textarea name="commands" id="commands" class="command-input"></textarea>
+                </div>
+               <!--<datalist id="taglist">
                   <xsl:for-each select="/result/contents/content">
                       <option value="{current()/contentdata/tag_name}" data-tag_id="{current()/@key}">
                           <xsl:value-of select="current()/contentdata/tag_name" />
                       </option>
                   </xsl:for-each>
-              </datalist>
+              </datalist>-->
           </form>    
         </div>
     </xsl:template>

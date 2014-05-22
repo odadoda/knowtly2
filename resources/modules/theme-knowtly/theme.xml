@@ -54,6 +54,9 @@
                 <script><path>//code.jquery.com/jquery-latest.min.js</path></script>
                 <script><path>{stk}stk.js</path></script>
                 <script><path>{stk}stk-aria.js</path></script>
+                
+                
+                <script><path>{theme}tinymce.min.js</path></script>
                 <script><path>{theme}main.js</path></script>
                 <script>
                     <path>//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js</path>                    

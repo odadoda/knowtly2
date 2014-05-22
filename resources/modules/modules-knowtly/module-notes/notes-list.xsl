@@ -5,6 +5,8 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">    
+   
+    <xsl:import href="/modules/library-stk/stk-variables.xsl"/>  
     
     <xsl:import href="/modules/library-stk/html.xsl"/>   
     <xsl:import href="/modules/library-stk/text.xsl"/>    
@@ -12,16 +14,17 @@
     
     <xsl:output method="xhtml"/>
     
+   
     
     
     <xsl:template match="/">
-        
         <xsl:if test="/result/contents/content != ''">
+            
+           
             <ul class="note-list">
                  <xsl:apply-templates select="/result/contents/content" />
             </ul>
         </xsl:if>
-        
     </xsl:template>
     
     

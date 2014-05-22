@@ -10,7 +10,7 @@ body {
     width: 100%;
 }
 
-h1,h2,h3,h4,h5,h6,p,div,a,span,ul,ol{
+h1,h2,h3,h4,h5,h6,p,div,a,span,ul,ol,textarea,input{
     font-family: menlo,verdana,sans-serif;
     font-size: 12px;
     color: @knowtly-gray-2;
@@ -49,6 +49,57 @@ ol,ul{
 }
 
 /**************************
+*   form elements
+***************************/
+input{
+    &[type="text"],
+    &[type="password"],
+    &[type="submit"] {
+        background: @knowtly-gray-2;
+        border: 0 none;
+        padding: 20px 5px;
+        color: @knowtly-white-1; 
+        width: 300px;
+        margin: 10px;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    &[type="submit"]{
+        cursor: pointer;
+        &:hover {
+            background: @knowtly-blue-1;
+        }   
+    }
+}
+
+.insert-form {
+    label {
+        display: block;
+    }    
+    input,
+    textarea {
+        
+        border: 1px solid @knowtly-gray-2;
+        color: @knowtly-gray-2;
+        background: @knowtly-white-1;
+        padding: 10px;
+        margin: 0;
+        text-align: left;
+        display: block;
+        font-size: 14px;
+        width: 100%;
+        .box-sizing(border-box);
+        
+    }
+    
+    textarea {
+        min-height: 300px;
+    }
+}
+
+/**************************
 *   note-list
 ***************************/
 .note-list {
@@ -61,12 +112,12 @@ ol,ul{
         display: flex;
         display: -webkit-flex;
         justify-content: center;
-        
     }
     
     .flexitem {
         .box-sizing(border-box);    
     }
+    
     .note {
         margin: 0 0 20px;    
     }
@@ -75,8 +126,8 @@ ol,ul{
         .flexitem();
         order: 1;
         -webkit-order:1;
-        flex: 3;
-        -webkit-flex:3;
+        flex: 5;
+        -webkit-flex:2.5;
         
         h1 {
             font-weight: bold; 
@@ -87,7 +138,7 @@ ol,ul{
         .flexitem();
         order: 3;
         -webkit-order: 3;
-        flex: 7;
+        flex: 14;
         -webkit-flex: 7;
         padding: 0 10px;
     }
@@ -96,8 +147,8 @@ ol,ul{
         .flexitem();
         order: 2;
         -webkit-order: 2;
-        flex: 1;
-        -webkit-flex: 1;
+        flex: 3 1 0;
+        -webkit-flex: 1.5;
     }
 }
 
@@ -136,13 +187,41 @@ ol,ul{
     .searchfield {
         background: none repeat scroll 0 0 #333333;
         border: 0 none;
+        margin: 0;
+        padding: 3px 10px;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .command-input {
         color: #EEEEEE;
         font-family: menlo,verdana,sans-serif;
         font-size: 12px;
         font-weight: normal;
-        line-height: 1.8;
+        line-height: 1.5;
+        
+        background: transparent;
+        border: 0 none;
+        float: left;
+        height: 20px;
+        resize: none;
+    }
+    
+    .command {
+        &.valid{
+            color: orange;
+        }
+    }
+    
+    #valid-commands {
+        list-style: none;
+        padding: 0;
         margin: 0;
-        padding: 3px;
-        width: 100%;
+        float: left;
+        
+        li {
+            margin: 0 5px 0 0;
+            float: left;
+        }
     }
 }
