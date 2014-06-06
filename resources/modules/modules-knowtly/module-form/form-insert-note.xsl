@@ -13,18 +13,24 @@
     <xsl:template match="/">
             <div class="insert-form">
         <form action="{portal:createServicesUrl('content', 'create', ())}" method="post">
-            <input type="hidden" name="categorykey" />
+            <input type="hidden" name="categorykey" value="5"/>
             <label for="title">Title</label>
             <input id="title" type="text" name="title" />
             <label for="text">Text</label>
             <textarea id="text" name="text" class="tinymceMe"></textarea>
             <label>Tags</label>
-            <input name="tags" id="tags" list="taglist"/>
+			<div class="note-tags">
+			<ul id="selected-tags"></ul>
+            <input name="input-tags" id="note-tags-input" list="taglist"/>
+			</div>
             <datalist id="taglist">
-                <option>javascript</option>
-                <option>java</option>
+				<xsl:for-each select="/result/contents/content[@contenttype = 'tag']">
+                	<option data-value="{current()/@key}"><xsl:value-of select="display-name"/></option>
+				</xsl:for-each>
+                <!-- option data-value="43">java</option-->
+
             </datalist>
-            <button>Arkiver og publiser</button>
+			<button>Arkiver og publiser</button>
             <button>Arkiver kladd</button>
         </form>
         </div>

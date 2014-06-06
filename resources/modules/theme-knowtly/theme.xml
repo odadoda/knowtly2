@@ -50,7 +50,7 @@
             </image>
             <scripts>               
 <!--                 <script><path>{theme}pre-less.js</path></script> -->
-                <script><path>{stk}less-min.js</path></script>
+<!--                 <script><path>{stk}less-min.js</path></script> -->
                 <script><path>//code.jquery.com/jquery-latest.min.js</path></script>
                 <script><path>{stk}stk.js</path></script>
                 <script><path>{stk}stk-aria.js</path></script>
@@ -84,7 +84,8 @@
             </layout>            
             <styles>
                 <style>
-                    <path>{theme}main.less</path>
+<!--                     <path>{theme}main.less</path> -->
+                    <path>{theme}main-min.css</path>
                 </style>
             </styles>
         </device-class>

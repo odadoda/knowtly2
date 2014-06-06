@@ -96,7 +96,33 @@ $(function() {
     	window.location.href = url;
     	return false;
     });
-
+    
+    $('#note-tags-input').keyup(function(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode ;
+        //console.log(charCode);
+        if(charCode === 39 || charCode == 9 || charCode == 13){
+            var temp = $(this);
+            console.log(temp.val());
+            $('#taglist option').each(function(){
+                if( $(this).html() === temp.val() ){
+                    console.log($(this).data('value'))
+            
+                    var element = $('<li data-value="'+$(this).data('value')+'" class="note-tag"></li>').html( $(this).val() );
+                    $(temp).val('');
+                    $('#selected-tags').append(element); 
+                    
+                    var newRelatedInput = $('<input type="hidden" name="tags"/>').val($(this).data('value'));
+                    $('#selected-tags').parent().append(newRelatedInput);    
+                    
+                }
+            });
+        }
+        if(charCode === 8){
+            console.log('chuck');
+            $('#selected-tags li').remove(':last');    
+        }
+    });
+    
     /*
 $('.tinymceMe').tinymce({
         toolbar:'bold,link,italic,list',
