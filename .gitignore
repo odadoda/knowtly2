@@ -1,1 +1,7 @@
 En-Knowtly.app
+*.iml
+*.db
+data/
+.idea
+
+
