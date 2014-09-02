@@ -35,6 +35,7 @@ $(function() {
 	$("#commandline").focus();    
 	
 	$("#commandline").keyup(function(evt){
+	    var commandline = $(this);
 	    var charCode = (evt.which) ? evt.which : evt.keyCode ;
         //console.log(charCode);
         
@@ -51,14 +52,24 @@ $(function() {
                 break;
             
             case 13: //enter /new line = execute command
-                console.log($("#valid-commands li").length);
-                if($("#valid-commands li").length == 2){
+                
+                var commands = $('#valid-commands li');
+                console.log(commands.eq(0).html());
+    	
+            	if(commands.length > 0){
+                    if(commands.eq(0).html() == 'new'){
+                        if(commands.eq(1).html() == 'note'){
+                            window.location.href = "edit/note";
+            	        }    
+                    }	
+            	}
+                /*if($("#valid-commands li").length == 2){
                     if(currentCommand.type == "goto"){
                         var url = currentCommand.url;
                         var param = $("#valid-commands li:last").val();
                         window.location.href = url+"?p1="+param;    
                     }
-                }
+                }*/
                 break;
         }
         
@@ -75,13 +86,24 @@ $(function() {
         }else{
     	    for(var i = 0; i < currentCommand.arguments.length; i++){
     		    if($.trim($('#commands').val()) == currentCommand.arguments[i]){
-        		    var command = $('<li class="valid command"></li>').html($('#commands').val());
+        		    var command = $('<li class="valid command"></li>').html($('#commands').val().trim());
             		$('#valid-commands').append(command);
             		$('#commands').val('');
         		}	
     		}    	
 		} 
+		var commandlineinput = commandline.find('.command-input').val();
 		
+		if(commandlineinput.length > 2){
+    		$.ajax( commandline.attr('data-get-url'), {
+        	    data: {
+            	    'q': commandline.find('.command-input').val()
+        	    }	
+    		}).done(function(data){
+        		$('.command-line-result').html($(data).children('.note'));
+        		$('.tags-result').html($(data).children('.tag'));
+    		});
+		}
 		
 		
 	});
@@ -89,17 +111,22 @@ $(function() {
 
 	$("#commandline").submit( function( event ){
     	event.preventDefault();
-    	var tag_name = $(this).children("#command-input").val();
-    	console.log($(this).children('#taglist').find('option[value="'+tag_name+'"]').data('tag_id'));//
+    	//var tag_name = $(this).children("#command-input").val();
+    	console.log('stop stop stop');
+    	
+    	
+    	/*console.log($(this).children('#taglist').find('option[value="'+tag_name+'"]').data('tag_id'));//
+    	
     	var url = "?tag_name="+$(this).children("#command-input").val();
     	url += "&tag_id="+$(this).children('#taglist').find('option[value="'+tag_name+'"]').data('tag_id');
-    	window.location.href = url;
+    	*/
+    	
     	return false;
     });
     
     $('#note-tags-input').keyup(function(evt){
         var charCode = (evt.which) ? evt.which : evt.keyCode ;
-        //console.log(charCode);
+        console.log(charCode);
         if(charCode === 39 || charCode == 9 || charCode == 13){
             var temp = $(this);
             console.log(temp.val());
@@ -117,9 +144,32 @@ $(function() {
                 }
             });
         }
+        
+        if(charCode === 32){ // 32 = space
+            var temp = $(this);
+            console.log(temp.val());
+            var newTag = $('<li></li>').html(temp.val().trim());
+            $('#selected-tags').append(newTag);
+            $(this).val('');
+            /*$('#taglist option').each(function(){
+                if( $(this).html() === temp.val() ){
+                    console.log($(this).data('value'))
+            
+                    var element = $('<li data-value="'+$(this).data('value')+'" class="note-tag"></li>').html( $(this).val() );
+                    $(temp).val('');
+                    $('#selected-tags').append(element); 
+                    
+                    var newRelatedInput = $('<input type="hidden" name="tags"/>').val($(this).data('value'));
+                    $('#selected-tags').parent().append(newRelatedInput);    
+                    
+                }
+            });*/        
+        }
+        
         if(charCode === 8){
-            console.log('chuck');
-            $('#selected-tags li').remove(':last');    
+            var lastElement = $('#selected-tags li:last');
+            $('input[value="'+lastElement.attr('data-value')+'"]').remove();
+            lastElement.remove();
         }
     });
     
@@ -156,7 +206,8 @@ $('.tinymceMe').tinymce({
 });
 tinymce.init({
     selector: ".tinymceMe",
-    plugins: 'code'
+    plugins: 'code, image, link',
+    image_advtab: true
  });
 
 

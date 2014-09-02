@@ -19,8 +19,6 @@
     
     <xsl:template match="/">
         <xsl:if test="/result/contents/content != ''">
-            
-           
             <ul class="note-list">
                  <xsl:apply-templates select="/result/contents/content" />
             </ul>

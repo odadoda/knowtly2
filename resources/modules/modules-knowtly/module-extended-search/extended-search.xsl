@@ -14,50 +14,16 @@
     <xsl:output method="html" />
     
     <xsl:template match="/">
-        <xsl:choose>
-            <xsl:when test="portal:isWindowInline()">
-                <div class="commandline">
-                    <form action="#" method="post" id="commandline" data-get-url="{portal:createWindowUrl()}">
-                       <label class="audible">Filter</label>
-        <!--               <input type="text" class="searchfield" id="command-input" placeholder="Filtrer: tag / title" list="taglist"/>-->
-                        <div id="searchfield" class="searchfield">
-                            <ol id="valid-commands"></ol>
-                            <textarea name="commands" id="commands" class="command-input"></textarea>
-                        </div>
-                       <!--<datalist id="taglist">
-                          <xsl:for-each select="/result/contents/content">
-                              <option value="{current()/contentdata/tag_name}" data-tag_id="{current()/@key}">
-                                  <xsl:value-of select="current()/contentdata/tag_name" />
-                              </option>
-                          </xsl:for-each>
-                      </datalist>-->
-                  </form>    
-                </div>
-                <ul class="tags-result"></ul>
-                <ul class="command-line-result">
-                    
-                </ul>
-            </xsl:when>
-            <xsl:otherwise>
-                
-               <xsl:apply-templates select="/result/tags/contents/content" mode="tags" />
-               <xsl:apply-templates select="/result/notes/contents/content|/result/tags/contents/relatedcontents/content" />                    
-               
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="content" mode="tags">
-    <li class="tag">
-        <a><xsl:value-of select="display-name"/></a>
-    </li>
+        
+        <xsl:apply-templates select="/result/contents/content" />
+        <xsl:copy-of select="/result/contents/_errors/_error"/>
     </xsl:template>
     
     <xsl:template match="content">
         <li class="note">
             <article>
                 <header>
-                    <h1><xsl:value-of select="contentdata/title" /></h1>
+                    <h1><xsl:value-of select="contentdata/tag_name" /></h1>
                     <time class="published">
                         <xsl:value-of select="if(normalize-space(contentdata/wp_postdate) != '') then contentdata/wp_postdate else @publishfrom" />
                     </time>
@@ -83,16 +49,11 @@
                 </div>
                 <aside>
                     <ul class="tag-list">
-                        <!-- <xsl:for-each select="/result/contents/relatedcontents/content[@key = current()/contentdata/tags/content/@key]">
+                        <xsl:for-each select="/result/contents/relatedcontents/content[@key = current()/contentdata/tags/content/@key]">
                             <li>
                                 <a href="{portal:createPageUrl(('tag_name', current()/contentdata/tag_name, 'tag_id', current()/@key))}">
                                     <xsl:value-of select="current()/contentdata/tag_name" />
                                 </a>
-                            </li>
-                        </xsl:for-each>-->
-                        <xsl:for-each select="contentdata/tags/content">
-                            <li>
-                                <a href="#"><xsl:value-of select="/result/notes/contents/relatedcontents/content[@key = current()/@key]/display-name" /></a>
                             </li>
                         </xsl:for-each>
                     </ul>
