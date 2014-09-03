@@ -173,6 +173,18 @@ $(function() {
         }
     });
     
+    $('.insert-form form').submit(function(form){
+        console.log($('#selected-tags li'));
+        // serialize li
+        var tags = "";
+        $('#selected-tags li').each(function(index, data){
+            tags += $(data).text() + ',';
+        });
+        var inputelement = $('<input type="hidden" name="validtags" value=""/>');
+        inputelement.val(tags);
+        $(this).append(inputelement);   
+    });
+     
     /*
 $('.tinymceMe').tinymce({
         toolbar:'bold,link,italic,list',
