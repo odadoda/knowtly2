@@ -11,7 +11,7 @@
     <xsl:import href="/modules/library-stk/text.xsl"/>    
     <xsl:import href="/modules/library-stk/time.xsl"/> 
     
-    <xsl:output method="html" />
+    <xsl:output method="xhtml" />
     
     <xsl:template match="/">
         <xsl:choose>
@@ -19,21 +19,14 @@
                 <div class="commandline">
                     <form action="#" method="post" id="commandline" data-get-url="{portal:createWindowUrl()}">
                        <label class="audible">Filter</label>
-        <!--               <input type="text" class="searchfield" id="command-input" placeholder="Filtrer: tag / title" list="taglist"/>-->
                         <div id="searchfield" class="searchfield">
                             <ol id="valid-commands"></ol>
-                            <textarea name="commands" id="commands" class="command-input"></textarea>
+                            <textarea tabindex="1" name="commands" id="commands" class="command-input"></textarea>
                         </div>
-                       <!--<datalist id="taglist">
-                          <xsl:for-each select="/result/contents/content">
-                              <option value="{current()/contentdata/tag_name}" data-tag_id="{current()/@key}">
-                                  <xsl:value-of select="current()/contentdata/tag_name" />
-                              </option>
-                          </xsl:for-each>
-                      </datalist>-->
+                       
                   </form>    
                 </div>
-                <ul class="tags-result"></ul>
+                <ul class="tags-result tag-list"></ul>
                 <ul class="command-line-result">
                     
                 </ul>
@@ -48,7 +41,7 @@
     </xsl:template>
     
     <xsl:template match="content" mode="tags">
-    <li class="tag">
+    <li class="tag" tabindex="1">
         <a><xsl:value-of select="display-name"/></a>
     </li>
     </xsl:template>
@@ -61,12 +54,17 @@
                     <time class="published">
                         <xsl:value-of select="if(normalize-space(contentdata/wp_postdate) != '') then contentdata/wp_postdate else @publishfrom" />
                     </time>
+                    <div class="actions">
+                        <xsl:if test="/result/context/user/memberships/group/name = 'Authenticated Users'">
+                            <a href="{portal:createPageUrl(3,('notekey', @key))}">Edit</a>
+                        </xsl:if>
+                    </div>
                 </header> 
                 
                 <div class="content">
                     <xsl:if test="contentdata/text != ''">
                         <xsl:choose>
-                            <xsl:when test="@created &lt; '2014-04-12'">
+                            <xsl:when test="@created &lt; '2014-04-12' and @publishfrom &lt; '2014-09-07'">
                                 <div class="editor">
                                     <xsl:value-of select="contentdata/text" disable-output-escaping="yes" />
                                 </div>

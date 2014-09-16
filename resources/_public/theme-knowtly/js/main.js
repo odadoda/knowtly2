@@ -37,7 +37,7 @@ $(function() {
 	$("#commandline").keyup(function(evt){
 	    var commandline = $(this);
 	    var charCode = (evt.which) ? evt.which : evt.keyCode ;
-        //console.log(charCode);
+        console.log(charCode);
         
         switch (charCode){
             case 8 : // delete
@@ -48,13 +48,15 @@ $(function() {
                         console.log("reset");
                     }
                     $('#valid-commands li:last').remove();
+                    
                 }
+                $('.command-line-result').html('');
                 break;
             
             case 13: //enter /new line = execute command
                 
                 var commands = $('#valid-commands li');
-                console.log(commands.eq(0).html());
+                //console.log(commands.eq(0).html());
     	
             	if(commands.length > 0){
                     if(commands.eq(0).html() == 'new'){
@@ -219,7 +221,8 @@ $('.tinymceMe').tinymce({
 tinymce.init({
     selector: ".tinymceMe",
     plugins: 'code, image, link',
-    image_advtab: true
+    closed : /^(br|hr|input|meta|img|link|param|area)$/,
+
  });
 
 

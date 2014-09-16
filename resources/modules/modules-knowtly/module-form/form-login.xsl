@@ -21,6 +21,7 @@
                 <input id="title" type="password" name="password" placeholder="passord" />
                 <input type="submit" value="Logg inn" />
         </form>
+        <xsl:copy-of select="." />
     </xsl:template>
     
 </xsl:stylesheet>
